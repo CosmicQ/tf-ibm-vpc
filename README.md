@@ -49,6 +49,9 @@ module "vpc" {
 # Details
 This module is inspired by the [AWS VPC module](https://github.com/terraform-aws-modules/terraform-aws-vpc).  
 
+## VPN
+This module can create a VPN gateway PER ZONE.  This is because IBM Cloud does not offer peering between VPCs, _and_ 
+in order to connect to resources in a multi-zone VPC, a VPN connection is required per zone (https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-known-limitations)
 
 # Inputs
 ```

@@ -3,8 +3,8 @@ resource ibm_is_vpc "vpc" {
 }
 
 resource "ibm_is_vpn_gateway" "vpn_gateway" {
-  count           = "${var.create_vpn_gateway}"
-  name            = "${var.name}-vpn-gateway"
+  count           = "${var.create_vpn_gateway} && ${length(var.zones)} > 0 ? 1 : 0"
+  name            = "${var.name}-vpn-gateway-${count.index + 1}"
   subnet          = "${ibm_is_subnet.public_subnet.0.id}"
 }
 
