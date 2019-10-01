@@ -73,8 +73,9 @@ in order to connect to resources in a multi-zone VPC, a VPN connection is requir
 
            vpc_name = "Name of the VPC"
              vpc_id = "VPC ID"
-     vpn_gateway_id = "VPN gateway ID"
-     vpn_gateway_ip = "VPN gateway IP address"
+           prefixes = "List of prefixes used"
+     vpn_gateway_id = "List of VPN gateway IDs"
+     vpn_gateway_ip = "List of VPN gateway IP addresses"
         gateway_ids = "List of gateway IDs"
   public_subnet_ids = "List of public subnet IDs"
  private_subnet_ids = "List of private subnet IDs"

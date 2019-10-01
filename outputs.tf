@@ -23,6 +23,11 @@ output "gateway_ids" {
   value       = ["${ibm_is_public_gateway.gate.*.id}"]
 }
 
+output "prefixes" {
+  description = "Prefixes (CIDRs)"
+  value       = ["${var.prefixes}"]
+}
+
 output "public_subnet_ids" {
   description = "List of public subnet IDs"
   value       = ["${ibm_is_subnet.public_subnet.*.id}"]
