@@ -10,12 +10,12 @@ output "vpc_id" {
 
 output "vpn_gateway_id" {
   description = "VPN gateway ID"
-  value       = "${ibm_is_vpn_gateway.vpn_gateway.*.id}"
+  value       = ["${ibm_is_vpn_gateway.vpn_gateway.*.id}"]
 }
 
 output "vpn_gateway_ip" {
   description = "VPN Gateway IP Address"
-  value       = "${ibm_is_vpn_gateway.vpn_gateway.*.public_ip_address}"
+  value       = ["${ibm_is_vpn_gateway.vpn_gateway.*.public_ip_address}"]
 }
 
 output "gateway_ids" {
