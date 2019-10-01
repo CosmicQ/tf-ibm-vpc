@@ -13,6 +13,11 @@ output "vpn_gateway_id" {
   value       = "${ibm_is_vpn_gateway.vpn_gateway.*.id}"
 }
 
+output "vpn_gateway_ip" {
+  description = "VPN Gateway IP Address"
+  value       = "${ibm_is_vpn_gateway.vpn_gateway.*.public_ip_address}"
+}
+
 output "gateway_ids" {
   description = "List of gateway IDs"
   value       = ["${ibm_is_public_gateway.gate.*.id}"]
