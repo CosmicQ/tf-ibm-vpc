@@ -23,6 +23,11 @@ output "gateway_ids" {
   value       = ["${ibm_is_public_gateway.gate.*.id}"]
 }
 
+output "gateway_ips" {
+  description = "List of gateway IP addresses"
+  value       = ["${ibm_is_public_gateway.gate_floatingip.*.id}"]
+}
+
 output "prefixes" {
   description = "Prefixes (CIDRs)"
   value       = ["${var.prefixes}"]

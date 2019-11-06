@@ -16,11 +16,17 @@ resource "ibm_is_vpc_address_prefix" "prefix" {
   cidr            = "${var.prefixes[count.index]}"
 }
 
+resource "ibm_is_floating_ip" "gate_floatingip" {
+  count           = "${length(var.public_subnets)}"
+  name            = "${var.name}-fip-${count.index +1}"
+}
+
 resource "ibm_is_public_gateway" "gate" {
   count           = "${length(var.public_subnets)}"
   name            = "${var.name}-gate-${count.index +1}"
   zone            = "${var.zones[count.index]}"
   vpc             = "${ibm_is_vpc.vpc.id}"
+  floating_ip     = "${element(ibm_is_floating_ip.gate_floatingip.*.id, count.index)}"
 }
 
 resource ibm_is_subnet "public_subnet" {  
