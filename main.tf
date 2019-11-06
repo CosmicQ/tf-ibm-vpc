@@ -18,6 +18,7 @@ resource "ibm_is_vpc_address_prefix" "prefix" {
 
 resource "ibm_is_floating_ip" "gate_floatingip" {
   count           = "${length(var.public_subnets)}"
+  zone            = "${var.zones[count.index]}"
   name            = "${var.name}-fip-${count.index +1}"
 }
 
