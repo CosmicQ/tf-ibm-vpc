@@ -21,6 +21,10 @@ resource "ibm_is_public_gateway" "gate" {
   name            = "${var.name}-gate-${count.index +1}"
   zone            = "${var.zones[count.index]}"
   vpc             = "${ibm_is_vpc.vpc.id}"
+  floating_ip     = {
+    id      = ""
+    address = ""
+  }
 }
 
 resource ibm_is_subnet "public_subnet" {  
