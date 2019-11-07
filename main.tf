@@ -16,21 +16,11 @@ resource "ibm_is_vpc_address_prefix" "prefix" {
   cidr            = "${var.prefixes[count.index]}"
 }
 
-resource "ibm_is_floating_ip" "gateip" {
-  count           = "${length(var.public_subnets)}"
-  zone            = "${var.zones[count.index]}"
-  name            = "${var.name}-fip-${count.index +1}"
-}
-
 resource "ibm_is_public_gateway" "gate" {
   count           = "${length(var.public_subnets)}"
   name            = "${var.name}-gate-${count.index +1}"
   zone            = "${var.zones[count.index]}"
   vpc             = "${ibm_is_vpc.vpc.id}"
-  depends_on      = [ "ibm_is_floating_ip.gateip" ]
-  floating_ip     = {
-    address = "${element(ibm_is_floating_ip.gateip.*.address, count.index)}"
-  }
 }
 
 resource ibm_is_subnet "public_subnet" {  
