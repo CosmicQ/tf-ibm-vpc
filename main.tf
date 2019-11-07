@@ -27,6 +27,7 @@ resource "ibm_is_public_gateway" "gate" {
   name            = "${var.name}-gate-${count.index +1}"
   zone            = "${var.zones[count.index]}"
   vpc             = "${ibm_is_vpc.vpc.id}"
+  depends_on      = [ "ibm_is_floating_ip.gateip" ]
   floating_ip     = {
     address = "${element(ibm_is_floating_ip.gateip.*.address, count.index)}"
   }
