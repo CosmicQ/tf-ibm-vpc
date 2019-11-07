@@ -25,7 +25,7 @@ output "gateway_ids" {
 
 output "gateway_ips" {
   description = "List of gateway IP addresses"
-  value       = ["${ibm_is_floating_ip.gate_floatingip.*.id}"]
+  value       = ["${ibm_is_floating_ip.gateip.*.address}"]
 }
 
 output "prefixes" {

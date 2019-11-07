@@ -16,7 +16,7 @@ resource "ibm_is_vpc_address_prefix" "prefix" {
   cidr            = "${var.prefixes[count.index]}"
 }
 
-resource "ibm_is_floating_ip" "gate_floatingip" {
+resource "ibm_is_floating_ip" "gateip" {
   count           = "${length(var.public_subnets)}"
   zone            = "${var.zones[count.index]}"
   name            = "${var.name}-fip-${count.index +1}"
@@ -27,7 +27,9 @@ resource "ibm_is_public_gateway" "gate" {
   name            = "${var.name}-gate-${count.index +1}"
   zone            = "${var.zones[count.index]}"
   vpc             = "${ibm_is_vpc.vpc.id}"
-  floating_ip     = "${element(ibm_is_floating_ip.gate_floatingip.*.id, count.index)}"
+  floating_ip     = {
+    address = "${element(ibm_is_floating_ip.gateip.*.address, count.index)}"
+  }
 }
 
 resource ibm_is_subnet "public_subnet" {  
@@ -37,6 +39,7 @@ resource ibm_is_subnet "public_subnet" {
   vpc             = "${ibm_is_vpc.vpc.id}"
   public_gateway  = "${element(ibm_is_public_gateway.gate.*.id, count.index)}"
   ipv4_cidr_block = "${var.public_subnets[count.index]}"
+  depends_on      = [ "ibm_is_public_gateway.gate" ]
 }
 
 resource ibm_is_subnet "private_subnet" {
@@ -46,6 +49,7 @@ resource ibm_is_subnet "private_subnet" {
   vpc             = "${ibm_is_vpc.vpc.id}"
   public_gateway  = "${element(ibm_is_public_gateway.gate.*.id, count.index)}"
   ipv4_cidr_block = "${var.private_subnets[count.index]}"
+  depends_on      = [ "ibm_is_public_gateway.gate" ]
 }
 
 resource ibm_is_subnet "data_subnet" {
@@ -55,4 +59,5 @@ resource ibm_is_subnet "data_subnet" {
   vpc             = "${ibm_is_vpc.vpc.id}"
   public_gateway  = "${element(ibm_is_public_gateway.gate.*.id, count.index)}"
   ipv4_cidr_block = "${var.data_subnets[count.index]}"
+  depends_on      = [ "ibm_is_public_gateway.gate" ]
 }
