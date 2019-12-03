@@ -43,7 +43,7 @@ output "private_subnet_ids" {
   value       = ["${ibm_is_subnet.private_subnet.*.id}"]
 }
 
-output "data_subnets_ids" {
+output "data_subnet_ids" {
   description = "List of data subnet IDs"
   value       = ["${ibm_is_subnet.data_subnet.*.id}"]
 }
