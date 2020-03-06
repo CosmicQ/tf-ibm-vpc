@@ -5,7 +5,7 @@ variable "name" {
 
 variable "create_vpn_gateway" {
   description = "Controls if a VPN gateway will be created"
-  default     = false
+  default     = 0
 }
 
 variable "zones" {
