@@ -47,3 +47,8 @@ output "data_subnet_ids" {
   description = "List of data subnet IDs"
   value       = ibm_is_subnet.data_subnet.*.id
 }
+
+output "cse_source_addresses" {
+  description = "List of IP addresses for private endpoints"
+  value       = ibm_is_vpc.vpc.cse_source_addresses
+}
